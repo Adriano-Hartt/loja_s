@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Felibow.Mobile.ViewModels"
+             xmlns:m="clr-namespace:Felibow.Mobile.Models"
+             x:Class="Felibow.Mobile.Views.NotificacoesPage" x:DataType="vm:NotificacoesViewModel" Title="Notificações">
+    <Grid RowDefinitions="Auto,*" Padding="12">
+        <VerticalStackLayout><Label Text="{Binding Erro}" IsVisible="{Binding TemErro}" TextColor="{StaticResource Danger}" SemanticProperties.HeadingLevel="None" />
+<ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" /></VerticalStackLayout>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Itens}">
+            <CollectionView.ItemsLayout><LinearItemsLayout Orientation="Vertical" ItemSpacing="8" /></CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:NotificacaoDto">
+                    <Border Style="{StaticResource Card}">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="{Binding Titulo}" FontAttributes="Bold" />
+                            <Label Text="{Binding Mensagem}" />
+                            <Label Text="{Binding CriadaEm, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontSize="12" TextColor="{StaticResource TextMuted}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

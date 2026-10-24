@@ -268,3 +268,6 @@ C:\Users\ramir\AppData\Local\Temp\bow-estoque-validation\bow.estoque.deps.json
 C:\Users\ramir\AppData\Local\Temp\bow-estoque-validation\bow.estoque.runtimeconfig.json
 C:\Users\ramir\AppData\Local\Temp\bow-estoque-validation\bow.estoque.dll
 C:\Users\ramir\AppData\Local\Temp\bow-estoque-validation\bow.estoque.pdb
+C:\Users\adriano\source\repos\projetoPim\loja_s\bow.estoque\obj\Debug\net10.0\bow.estoque.dll
+C:\Users\adriano\source\repos\projetoPim\loja_s\bow.estoque\obj\Debug\net10.0\refint\bow.estoque.dll
+C:\Users\adriano\source\repos\projetoPim\loja_s\bow.estoque\obj\Debug\net10.0\bow.estoque.pdb

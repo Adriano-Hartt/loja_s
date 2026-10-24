@@ -4,6 +4,7 @@
     var subtotal = ViewBag.Subtotal as decimal? ?? 0m;
     var frete = ViewBag.Frete as decimal? ?? 0m;
     var total = ViewBag.Total as decimal? ?? 0m;
+    var imagens = ViewBag.Imagens as Dictionary<int, string> ?? new Dictionary<int, string>();
 }
 
 <div class="checkout-shell">
@@ -32,20 +33,33 @@
                 <div class="cart-list">
                     @foreach (var item in Model)
                     {
-                        <div class="cart-item">
+                        imagens.TryGetValue(item.ProdutoId, out var imagem);
+                        <div class="cart-item" data-produto-id="@item.ProdutoId">
+                            <a class="cart-item-thumb" asp-controller="Home" asp-action="VerProduto" asp-route-id="@item.ProdutoId">
+                                @if (!string.IsNullOrWhiteSpace(imagem))
+                                {
+                                    <img src="@Url.Content(imagem)" alt="@item.NomeProduto" loading="lazy" />
+                                }
+                                else
+                                {
+                                    <span>Sem foto</span>
+                                }
+                            </a>
                             <div class="cart-item-info">
                                 <h3>@item.NomeProduto</h3>
                                 <p>R$ @item.PrecoUnitario.ToString("N2")</p>
                             </div>
-                            <form asp-action="AtualizarQuantidade" asp-controller="Carrinho" method="post">
+                            <form class="cart-qty-form" asp-action="AtualizarQuantidade" asp-controller="Carrinho" method="post">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="produtoId" value="@item.ProdutoId" />
-                                <div class="quantity-box">
-                                    <input type="number" name="quantidade" value="@item.Quantidade" min="1" />
-                                    <button type="submit" class="secondary-btn">Atualizar</button>
+                                <div class="quantity-box" data-qty-box>
+                                    <button type="button" class="qty-step" data-step="-1" aria-label="Diminuir quantidade">−</button>
+                                    <input type="number" name="quantidade" value="@item.Quantidade" min="1" aria-label="Quantidade de @item.NomeProduto" />
+                                    <button type="button" class="qty-step" data-step="1" aria-label="Aumentar quantidade">+</button>
                                 </div>
+                                <small class="qty-error" role="alert" hidden></small>
                             </form>
-                            <div class="cart-item-price">Subtotal: R$ @item.Subtotal.ToString("N2")</div>
+                            <div class="cart-item-price">Subtotal: R$ <span data-item-subtotal>@item.Subtotal.ToString("N2")</span></div>
                             <form asp-action="SalvarParaDepois" asp-controller="Carrinho" method="post">
                                 <input type="hidden" name="produtoId" value="@item.ProdutoId" />
                                 <button type="submit" class="secondary-btn">Salvar para depois</button>
@@ -63,9 +77,9 @@
 
         <aside class="checkout-summary">
             <h2>Resumo</h2>
-            <div class="summary-row"><span>Subtotal</span><strong>R$ @subtotal.ToString("N2")</strong></div>
-            <div class="summary-row"><span>Frete</span><strong>R$ @frete.ToString("N2")</strong></div>
-            <div class="summary-row total"><span>Total</span><strong>R$ @total.ToString("N2")</strong></div>
+            <div class="summary-row"><span>Subtotal</span><strong>R$ <span data-sum-subtotal>@subtotal.ToString("N2")</span></strong></div>
+            <div class="summary-row"><span>Frete</span><strong>R$ <span data-sum-frete>@frete.ToString("N2")</span></strong></div>
+            <div class="summary-row total"><span>Total</span><strong>R$ <span data-sum-total>@total.ToString("N2")</span></strong></div>
             <a asp-controller="Checkout" asp-action="Index" class="primary-btn full">Ir para o checkout</a>
             <a asp-controller="Home" asp-action="Index" class="plain-link">Continuar comprando</a>
         </aside>
@@ -73,3 +87,4 @@
 </div>
 
 <link rel="stylesheet" href="~/css/checkout.css" asp-append-version="true" />
+<script src="~/js/carrinho.js" asp-append-version="true" defer></script>

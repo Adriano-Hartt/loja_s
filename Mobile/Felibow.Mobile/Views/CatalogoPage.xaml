@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Felibow.Mobile.ViewModels"
+             xmlns:m="clr-namespace:Felibow.Mobile.Models"
+             x:Class="Felibow.Mobile.Views.CatalogoPage" x:DataType="vm:CatalogoViewModel" Title="Catálogo">
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="12" RowSpacing="8">
+        <SearchBar Placeholder="Buscar produto" Text="{Binding Busca}" SearchCommand="{Binding CarregarCommand}" />
+        <Border Grid.Row="1" Style="{StaticResource Card}" BackgroundColor="#FFF4CC" IsVisible="{Binding TemAviso}">
+            <Label Text="{Binding Aviso}" />
+        </Border>
+        <VerticalStackLayout Grid.Row="2"><Label Text="{Binding Erro}" IsVisible="{Binding TemErro}" TextColor="{StaticResource Danger}" SemanticProperties.HeadingLevel="None" />
+<ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" /></VerticalStackLayout>
+        <RefreshView Grid.Row="3" Command="{Binding CarregarCommand}" IsRefreshing="{Binding Ocupado, Mode=OneWay}">
+            <CollectionView ItemsSource="{Binding Produtos}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="8" VerticalItemSpacing="8" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:ProdutoItem">
+                        <Border Style="{StaticResource Card}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CatalogoViewModel}}, x:DataType=vm:CatalogoViewModel, Path=AbrirCommand}" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout Spacing="4">
+                                <Image Source="{Binding Imagem}" HeightRequest="120" Aspect="AspectFit" SemanticProperties.Description="{Binding Dto.Nome}" />
+                                <Label Text="{Binding Dto.Nome}" FontAttributes="Bold" MaxLines="2" LineBreakMode="TailTruncation" />
+                                <Label Text="{Binding PrecoOriginal}" TextDecorations="Strikethrough" FontSize="12" TextColor="{StaticResource TextMuted}" IsVisible="{Binding TemPromocao}" />
+                                <Label Text="{Binding PrecoTexto}" FontSize="16" TextColor="{StaticResource Primary}" FontAttributes="Bold" />
+                                <Label Text="{Binding EstoqueTexto}" FontSize="12" TextColor="{StaticResource TextMuted}" />
+                                <Button Text="{Binding Favorito, Converter={StaticResource FavTexto}}" Style="{StaticResource Secondary}" MinimumHeightRequest="44"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CatalogoViewModel}}, x:DataType=vm:CatalogoViewModel, Path=AlternarFavoritoCommand}" CommandParameter="{Binding .}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

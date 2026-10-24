@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Felibow.Mobile.ViewModels"
+             xmlns:m="clr-namespace:Felibow.Mobile.Models"
+             x:Class="Felibow.Mobile.Views.FavoritosPage" x:DataType="vm:FavoritosViewModel" Title="Favoritos">
+    <Grid RowDefinitions="Auto,*" Padding="12">
+        <VerticalStackLayout><Label Text="{Binding Erro}" IsVisible="{Binding TemErro}" TextColor="{StaticResource Danger}" SemanticProperties.HeadingLevel="None" />
+<ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" /></VerticalStackLayout>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Itens}">
+            <CollectionView.ItemsLayout><LinearItemsLayout Orientation="Vertical" ItemSpacing="8" /></CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:ProdutoItem">
+                    <Border Style="{StaticResource Card}">
+                        <Grid ColumnDefinitions="72,*" ColumnSpacing="10">
+                            <Image Source="{Binding Imagem}" Aspect="AspectFit" />
+                            <VerticalStackLayout Grid.Column="1" Spacing="4">
+                                <Label Text="{Binding Dto.Nome}" FontAttributes="Bold" />
+                                <Label Text="{Binding PrecoTexto}" TextColor="{StaticResource Primary}" />
+                                <HorizontalStackLayout Spacing="8">
+                                    <Button Text="Ver" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoritosViewModel}}, x:DataType=vm:FavoritosViewModel, Path=AbrirCommand}" CommandParameter="{Binding .}" />
+                                    <Button Text="Remover" Style="{StaticResource Secondary}" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoritosViewModel}}, x:DataType=vm:FavoritosViewModel, Path=RemoverCommand}" CommandParameter="{Binding .}" />
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

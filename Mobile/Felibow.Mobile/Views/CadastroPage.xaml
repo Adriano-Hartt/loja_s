@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Felibow.Mobile.ViewModels"
+             xmlns:m="clr-namespace:Felibow.Mobile.Models"
+             x:Class="Felibow.Mobile.Views.CadastroPage" x:DataType="vm:CadastroViewModel" Title="Criar conta">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Entry Placeholder="Nome" Text="{Binding Nome}" />
+            <Entry Placeholder="Sobrenome" Text="{Binding Sobrenome}" />
+            <Entry Placeholder="E-mail" Keyboard="Email" Text="{Binding Email}" />
+            <Entry Placeholder="Telefone (opcional)" Keyboard="Telephone" Text="{Binding Telefone}" />
+            <Entry Placeholder="Senha (10+ caracteres, maiúscula, número e símbolo)" IsPassword="True" Text="{Binding Senha}" />
+            <Entry Placeholder="Confirmar senha" IsPassword="True" Text="{Binding ConfirmarSenha}" />
+            <HorizontalStackLayout Spacing="8">
+                <CheckBox IsChecked="{Binding AceitouTermos}" SemanticProperties.Description="Aceito os termos de uso" />
+                <Label Text="Aceito os termos de uso" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <Label Text="{Binding Erro}" IsVisible="{Binding TemErro}" TextColor="{StaticResource Danger}" SemanticProperties.HeadingLevel="None" />
+<ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" />
+            <Button Text="Criar conta" Command="{Binding CriarCommand}" IsEnabled="{Binding NaoOcupado}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

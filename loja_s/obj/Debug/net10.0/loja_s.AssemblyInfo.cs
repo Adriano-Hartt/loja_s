@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("felibow-loja-s-pim4")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("loja_s")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+629d36e9ceaec1037a0d35cb5f6e765d29d86764")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4609b890c9f2f7e148ec36ec1b627424bff44ce3")]
 [assembly: System.Reflection.AssemblyProductAttribute("loja_s")]
 [assembly: System.Reflection.AssemblyTitleAttribute("loja_s")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Felibow.Mobile.ViewModels"
+             xmlns:m="clr-namespace:Felibow.Mobile.Models"
+             x:Class="Felibow.Mobile.Views.ContaPage" x:DataType="vm:ContaViewModel" Title="Conta">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="10">
+            <Label Text="{Binding Erro}" IsVisible="{Binding TemErro}" TextColor="{StaticResource Danger}" SemanticProperties.HeadingLevel="None" />
+<ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" />
+            <Label Text="{Binding Nome}" FontSize="22" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level1" />
+            <Label Text="{Binding Email}" TextColor="{StaticResource TextMuted}" />
+            <Border Style="{StaticResource Card}"><Label Text="{Binding Resumo}" /></Border>
+            <Button Text="Favoritos" Command="{Binding FavoritosCommand}" />
+            <Button Text="Notificações" Command="{Binding NotificacoesCommand}" />
+            <Label Text="Servidor da API" FontAttributes="Bold" />
+            <Entry Text="{Binding Servidor}" Keyboard="Url" />
+            <Button Text="Salvar servidor" Style="{StaticResource Secondary}" Command="{Binding SalvarServidorCommand}" />
+            <Button Text="Sair" BackgroundColor="{StaticResource Danger}" Command="{Binding SairCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

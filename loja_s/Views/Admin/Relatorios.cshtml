@@ -1,0 +1,33 @@
+@model loja_s.Controllers.RelatorioViewModel
+@{ ViewData["Title"] = "Relatórios"; }
+<h1>Relatórios</h1>
+<form method="get" class="card">
+    <label for="de">De</label><input id="de" name="de" type="date" value="@Model.De.ToString("yyyy-MM-dd")" />
+    <label for="ate">Até</label><input id="ate" name="ate" type="date" value="@Model.Ate.ToString("yyyy-MM-dd")" />
+    <p><button type="submit">Aplicar</button></p>
+</form>
+<div class="card scroll">
+    <h2>Vendas por dia</h2>
+    <table>
+        <thead><tr><th>Dia</th><th>Pedidos</th><th>Total</th></tr></thead>
+        <tbody>
+        @foreach (var v in Model.VendasPorDia)
+        {
+            <tr><td>@v.Dia.ToString("dd/MM/yyyy")</td><td>@v.Pedidos</td><td>R$ @v.Total.ToString("N2")</td></tr>
+        }
+        </tbody>
+        <tfoot><tr><td><b>Total</b></td><td><b>@Model.VendasPorDia.Sum(x => x.Pedidos)</b></td><td><b>R$ @Model.VendasPorDia.Sum(x => x.Total).ToString("N2")</b></td></tr></tfoot>
+    </table>
+</div>
+<div class="card scroll">
+    <h2>Produtos mais vendidos</h2>
+    <table>
+        <thead><tr><th>Produto</th><th>Unidades</th><th>Receita</th></tr></thead>
+        <tbody>
+        @foreach (var m in Model.MaisVendidos)
+        {
+            <tr><td>@m.Produto</td><td>@m.Quantidade</td><td>R$ @m.Total.ToString("N2")</td></tr>
+        }
+        </tbody>
+    </table>
+</div>

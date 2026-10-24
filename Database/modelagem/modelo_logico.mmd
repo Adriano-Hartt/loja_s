@@ -1,0 +1,142 @@
+erDiagram
+    Usuarios {
+        int Id PK
+        nvarchar Nome
+        nvarchar Email UK
+        nvarchar Telefone
+        nvarchar CPF
+        nvarchar SenhaHash
+        nvarchar Tipo
+        nvarchar Status
+        datetime2 DataCadastro
+    }
+    PerfisConta {
+        int UsuarioId PK,FK
+        nvarchar Sobrenome
+        datetime2 DataNascimento
+        bit EmailConfirmado
+        bit AtualizacoesPedidos
+    }
+    SegurancasConta {
+        int UsuarioId PK,FK
+        int TentativasFalhas
+        datetime2 BloqueadoAte
+        nvarchar SecurityStamp
+    }
+    SessoesConta {
+        int Id PK
+        int UsuarioId FK
+        nvarchar ChaveSessao UK
+        nvarchar Dispositivo
+        datetime2 UltimaAtividade
+    }
+    Notificacoes {
+        int Id PK
+        int UsuarioId FK
+        nvarchar Categoria
+        nvarchar Titulo
+        nvarchar Mensagem
+        datetime2 LidaEm
+    }
+    Categorias {
+        int Id PK
+        nvarchar Nome UK
+    }
+    Fornecedores {
+        int Id PK
+        nvarchar RazaoSocial
+        nvarchar CNPJ UK
+    }
+    Produtos {
+        int Id PK
+        nvarchar SKU UK
+        nvarchar Nome
+        decimal PrecoVenda
+        decimal PrecoPromocional
+        int QuantidadeEstoque
+        int EstoqueMinimo
+        int CategoriaId FK
+        int FornecedorId FK
+        nvarchar Status
+    }
+    Enderecos {
+        int Id PK
+        int UsuarioId FK
+        nvarchar CEP
+        nvarchar Rua
+        nvarchar Cidade
+        bit Principal
+    }
+    Carrinhos {
+        int Id PK
+        int UsuarioId FK
+    }
+    ItensCarrinho {
+        int Id PK
+        int CarrinhoId FK
+        int ProdutoId FK
+        int Quantidade
+        decimal PrecoUnitario
+    }
+    Favoritos {
+        int Id PK
+        int UsuarioId FK
+        int ProdutoId FK
+    }
+    Pedidos {
+        int Id PK
+        int UsuarioId FK
+        int EnderecoEntregaId FK
+        nvarchar NumeroPedido UK
+        nvarchar Status
+        nvarchar StatusPagamento
+        decimal ValorTotal
+    }
+    ItensPedido {
+        int Id PK
+        int PedidoId FK
+        int ProdutoId FK
+        int Quantidade
+        decimal PrecoUnitario
+    }
+    Pagamentos {
+        int Id PK
+        int PedidoId FK,UK
+        nvarchar FormaPagamento
+        nvarchar Status
+        decimal Valor
+    }
+    HistoricoPagamentos {
+        int Id PK
+        int PedidoId FK
+        nvarchar StatusAnterior
+        nvarchar StatusAtual
+    }
+    MovimentacoesEstoque {
+        int Id PK
+        int ProdutoId FK
+        int UsuarioId FK
+        nvarchar TipoMovimentacao
+        int EstoqueAnterior
+        int EstoqueAtual
+    }
+    Usuarios ||--o| PerfisConta : "1:1"
+    Usuarios ||--o| SegurancasConta : "1:1"
+    Usuarios ||--o{ SessoesConta : "1:N"
+    Usuarios ||--o{ Notificacoes : "1:N"
+    Usuarios ||--o{ Enderecos : "1:N"
+    Usuarios ||--o{ Carrinhos : "1:N"
+    Usuarios ||--o{ Favoritos : "1:N"
+    Usuarios ||--o{ Pedidos : "1:N"
+    Usuarios ||--o{ MovimentacoesEstoque : "1:N"
+    Categorias ||--o{ Produtos : "1:N"
+    Fornecedores ||--o{ Produtos : "1:N"
+    Produtos ||--o{ ItensCarrinho : "1:N"
+    Produtos ||--o{ Favoritos : "1:N"
+    Produtos ||--o{ ItensPedido : "1:N"
+    Produtos ||--o{ MovimentacoesEstoque : "1:N"
+    Carrinhos ||--|{ ItensCarrinho : "1:N"
+    Enderecos ||--o{ Pedidos : "1:N"
+    Pedidos ||--|{ ItensPedido : "1:N"
+    Pedidos ||--o| Pagamentos : "1:1"
+    Pedidos ||--o{ HistoricoPagamentos : "1:N"

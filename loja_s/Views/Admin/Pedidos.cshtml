@@ -1,39 +1,29 @@
 @model List<loja_s.Models.Pedido>
-@{
-    ViewData["Title"] = "Administração de pedidos";
-}
-
-<div class="checkout-shell">
-    <div class="checkout-section">
-        <h1>Pedidos</h1>
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th>Número</th>
-                    <th>Cliente</th>
-                    <th>Data</th>
-                    <th>Forma de pagamento</th>
-                    <th>Valor</th>
-                    <th>Status pagamento</th>
-                    <th>Status pedido</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var pedido in Model)
-                {
-                    <tr>
-                        <td>@pedido.NumeroPedido</td>
-                        <td>@(pedido.Usuario?.Nome ?? "Cliente")</td>
-                        <td>@pedido.DataPedido.ToString("dd/MM/yyyy")</td>
-                        <td>@pedido.FormaPagamento</td>
-                        <td>R$ @pedido.ValorTotal.ToString("N2")</td>
-                        <td>@pedido.StatusPagamento</td>
-                        <td>@pedido.Status</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+@{ ViewData["Title"] = "Pedidos"; var todos = (List<string>)ViewBag.Todos; var atual = (string?)ViewBag.Status; }
+<h1>Pedidos</h1>
+<form method="get" class="card">
+    <label for="status">Filtrar por status</label>
+    <select id="status" name="status" onchange="this.form.submit()">
+        <option value="">Todos</option>
+        @foreach (var s in todos) { <option value="@s" selected="@(s == atual)">@s</option> }
+    </select>
+    <noscript><button type="submit">Filtrar</button></noscript>
+</form>
+<div class="card scroll">
+    <table>
+        <thead><tr><th>Número</th><th>Cliente</th><th>Data</th><th>Pagamento</th><th>Total</th><th>Status</th></tr></thead>
+        <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td><a asp-action="Pedido" asp-route-id="@p.Id">@p.NumeroPedido</a></td>
+                <td>@(p.Usuario?.Nome ?? "Cliente")</td>
+                <td>@p.DataPedido.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@p.FormaPagamento – @p.StatusPagamento</td>
+                <td>R$ @p.ValorTotal.ToString("N2")</td>
+                <td>@p.Status</td>
+            </tr>
+        }
+        </tbody>
+    </table>
 </div>
-
-<link rel="stylesheet" href="~/css/checkout.css" asp-append-version="true" />

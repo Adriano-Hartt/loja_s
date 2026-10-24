@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Felibow.Mobile.ViewModels"
+             xmlns:m="clr-namespace:Felibow.Mobile.Models"
+             x:Class="Felibow.Mobile.Views.PedidosPage" x:DataType="vm:PedidosViewModel" Title="Pedidos">
+    <Grid RowDefinitions="Auto,*" Padding="12">
+        <VerticalStackLayout><Label Text="{Binding Erro}" IsVisible="{Binding TemErro}" TextColor="{StaticResource Danger}" SemanticProperties.HeadingLevel="None" />
+<ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" /></VerticalStackLayout>
+        <Label Grid.Row="1" Text="Você ainda não fez pedidos." HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding Vazio}" />
+        <RefreshView Grid.Row="1" Command="{Binding CarregarCommand}" IsRefreshing="{Binding Ocupado, Mode=OneWay}">
+            <CollectionView ItemsSource="{Binding Pedidos}">
+                <CollectionView.ItemsLayout><LinearItemsLayout Orientation="Vertical" ItemSpacing="8" /></CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="m:PedidoResumoDto">
+                        <Border Style="{StaticResource Card}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PedidosViewModel}}, x:DataType=vm:PedidosViewModel, Path=AbrirCommand}" CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout Spacing="2">
+                                <Label Text="{Binding NumeroPedido}" FontAttributes="Bold" />
+                                <Label Text="{Binding DataPedido, StringFormat='{0:dd/MM/yyyy HH:mm}'}" TextColor="{StaticResource TextMuted}" />
+                                <Label Text="{Binding Status}" TextColor="{StaticResource Primary}" />
+                                <Label Text="{Binding ValorTotal, StringFormat='{0:C}'}" FontAttributes="Bold" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,38 @@
+@model loja_s.Controllers.AdminDashboardViewModel
+@{ ViewData["Title"] = "Painel"; }
+<h1>Painel administrativo</h1>
+<div class="grid">
+    <div class="card kpi"><span>Pedidos (30 dias)</span><b>@Model.Pedidos30Dias</b></div>
+    <div class="card kpi"><span>Faturamento (30 dias)</span><b>R$ @Model.Faturamento30Dias.ToString("N2")</b></div>
+    <div class="card kpi"><span>Pedidos em aberto</span><b>@Model.PedidosEmAberto</b></div>
+    <div class="card kpi"><span>Clientes</span><b>@Model.Clientes</b></div>
+    <div class="card kpi"><span>Produtos ativos</span><b>@Model.ProdutosAtivos</b></div>
+</div>
+<div class="card">
+    <h2>Estoque baixo</h2>
+    @if (!Model.EstoqueBaixo.Any()) { <p>Nenhum produto abaixo do estoque mínimo.</p> }
+    else
+    {
+        <div class="scroll"><table>
+            <thead><tr><th>Produto</th><th>Estoque</th><th>Mínimo</th><th></th></tr></thead>
+            <tbody>
+            @foreach (var p in Model.EstoqueBaixo)
+            {
+                <tr><td>@p.Nome</td><td>@p.Estoque</td><td>@p.EstoqueMinimo</td>
+                    <td><a asp-action="EditarProduto" asp-route-id="@p.Id">Ajustar</a></td></tr>
+            }
+            </tbody></table></div>
+    }
+</div>
+<div class="card">
+    <h2>Últimos pedidos</h2>
+    <div class="scroll"><table>
+        <thead><tr><th>Número</th><th>Cliente</th><th>Status</th><th>Total</th></tr></thead>
+        <tbody>
+        @foreach (var p in Model.UltimosPedidos)
+        {
+            <tr><td><a asp-action="Pedido" asp-route-id="@p.Id">@p.NumeroPedido</a></td>
+                <td>@(p.Usuario?.Nome ?? "Cliente")</td><td>@p.Status</td><td>R$ @p.ValorTotal.ToString("N2")</td></tr>
+        }
+        </tbody></table></div>
+</div>

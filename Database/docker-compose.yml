@@ -1,0 +1,51 @@
+# SQL Server local para desenvolvimento do Felibow.
+#
+#   cp .env.example .env      (edite as duas senhas)
+#   docker compose up -d
+#
+# O servico "db-init" aguarda o SQL Server ficar saudavel, executa o script completo
+# (felibow_banco_completo.sql) e cria o usuario da aplicacao (06_usuario_aplicacao.sql).
+# Pode ser executado novamente sem duplicar nada (scripts idempotentes).
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: felibow-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?Defina MSSQL_SA_PASSWORD no arquivo .env}
+    ports:
+      - "1433:1433"
+    volumes:
+      - felibow_sql_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -Q \"SELECT 1\" || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  db-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: felibow-db-init
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    restart: "no"
+    environment:
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?Defina MSSQL_SA_PASSWORD no arquivo .env}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?Defina APP_DB_PASSWORD no arquivo .env}
+    volumes:
+      - ./:/scripts:ro
+    entrypoint:
+      - /bin/bash
+      - -c
+      - >
+        /opt/mssql-tools18/bin/sqlcmd -C -S sqlserver -U sa -P "$$MSSQL_SA_PASSWORD" -f 65001 -b
+        -i /scripts/felibow_banco_completo.sql &&
+        /opt/mssql-tools18/bin/sqlcmd -C -S sqlserver -U sa -P "$$MSSQL_SA_PASSWORD" -f 65001 -b
+        -v APP_PASSWORD="$$APP_DB_PASSWORD" -i /scripts/06_usuario_aplicacao.sql &&
+        echo "Banco FelibowLoja pronto."
+
+volumes:
+  felibow_sql_data:

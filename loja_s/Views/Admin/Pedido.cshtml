@@ -1,0 +1,42 @@
+@model loja_s.Models.Pedido
+@{ ViewData["Title"] = Model.NumeroPedido; var proximos = (string[])ViewBag.Proximos; }
+<h1>Pedido @Model.NumeroPedido</h1>
+<div class="card">
+    <p><b>Cliente:</b> @Model.Usuario?.Nome (@Model.Usuario?.Email)</p>
+    <p><b>Data:</b> @Model.DataPedido.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</p>
+    <p><b>Status:</b> @Model.Status · <b>Pagamento:</b> @Model.FormaPagamento – @Model.StatusPagamento</p>
+    @if (Model.EnderecoEntrega != null)
+    {
+        <p><b>Entrega:</b> @Model.EnderecoEntrega.Rua, @Model.EnderecoEntrega.Numero – @Model.EnderecoEntrega.Bairro, @Model.EnderecoEntrega.Cidade/@Model.EnderecoEntrega.Estado</p>
+    }
+</div>
+<div class="card scroll">
+    <table>
+        <thead><tr><th>Produto</th><th>Qtd</th><th>Preço</th><th>Subtotal</th></tr></thead>
+        <tbody>
+        @foreach (var i in Model.Itens)
+        {
+            <tr><td>@i.NomeProduto</td><td>@i.Quantidade</td><td>R$ @i.PrecoUnitario.ToString("N2")</td><td>R$ @i.Subtotal.ToString("N2")</td></tr>
+        }
+        </tbody>
+        <tfoot>
+            <tr><td colspan="3">Frete</td><td>R$ @Model.Frete.ToString("N2")</td></tr>
+            <tr><td colspan="3"><b>Total</b></td><td><b>R$ @Model.ValorTotal.ToString("N2")</b></td></tr>
+        </tfoot>
+    </table>
+</div>
+@if (proximos.Length > 0)
+{
+    <div class="card">
+        <h2>Alterar status</h2>
+        @foreach (var s in proximos)
+        {
+            <form asp-action="AlterarStatus" method="post" class="inline">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="hidden" name="novoStatus" value="@s" />
+                <button type="submit" class="@(s == "Cancelado" ? "btn-danger" : "")">@s</button>
+            </form>
+        }
+    </div>
+}
+<a asp-action="Pedidos" class="btn btn-light">Voltar</a>

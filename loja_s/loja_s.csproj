@@ -4,12 +4,16 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>felibow-loja-s-pim4</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\Shared\IntegratedDatabaseImporter.cs" Link="Data\IntegratedDatabaseImporter.cs" />
     <Compile Include="..\Shared\SqliteConnectionStringResolver.cs" Link="Data\SqliteConnectionStringResolver.cs" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.*" />
     <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.12-pre20260709125052" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0">
       <PrivateAssets>all</PrivateAssets>

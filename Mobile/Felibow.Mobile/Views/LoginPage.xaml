@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Felibow.Mobile.ViewModels"
+             xmlns:m="clr-namespace:Felibow.Mobile.Models"
+             x:Class="Felibow.Mobile.Views.LoginPage" x:DataType="vm:LoginViewModel" Title="Entrar" Shell.NavBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="14" VerticalOptions="Center">
+            <Label Text="Felibow" FontSize="34" FontAttributes="Bold" TextColor="{StaticResource Primary}" HorizontalOptions="Center" SemanticProperties.HeadingLevel="Level1" />
+            <Label Text="Entre para comprar e acompanhar seus pedidos" HorizontalOptions="Center" TextColor="{StaticResource TextMuted}" />
+            <Entry Placeholder="E-mail" Keyboard="Email" Text="{Binding Email}" SemanticProperties.Description="E-mail" />
+            <Entry Placeholder="Senha" IsPassword="True" Text="{Binding Senha}" SemanticProperties.Description="Senha" />
+            <Entry Placeholder="Servidor (ex.: http://10.0.2.2:5258)" Keyboard="Url" Text="{Binding Servidor}" SemanticProperties.Description="Endereço do servidor" />
+            <Label Text="{Binding Erro}" IsVisible="{Binding TemErro}" TextColor="{StaticResource Danger}" SemanticProperties.HeadingLevel="None" />
+<ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" />
+            <Button Text="Entrar" Command="{Binding EntrarCommand}" IsEnabled="{Binding NaoOcupado}" />
+            <Button Text="Criar conta" Style="{StaticResource Secondary}" Command="{Binding CadastrarCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

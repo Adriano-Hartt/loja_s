@@ -1,7 +1,7 @@
 ﻿@model IReadOnlyList<loja_s.Models.Produto>
 @{
     Layout = null;
-    ViewData["Title"] = "Loja de Suplementos - Home";
+    ViewData["Title"] = "Felibow - Home";
 }
 
 <!DOCTYPE html>
@@ -9,22 +9,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
+    <title>@ViewData["Title"] - Felibow</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
     <link rel="stylesheet" href="~/css/paginal_i.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/dark.css" asp-append-version="true" />
+    <script src="~/js/theme.js" asp-append-version="true"></script>
 </head>
 <body>
 
     <!-- Cabeçalho -->
     <header class="header">
-        <a class="logo" asp-controller="Home" asp-action="Index" aria-label="Suplementos — página inicial">
+        <a class="logo" asp-controller="Home" asp-action="Index" aria-label="Felibow — página inicial">
             <span class="logo-mark" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false">
                     <path d="M13.2 2.5 5.8 13h5.1l-.6 8.5L18.2 11h-5.1l.1-8.5Z" />
                 </svg>
             </span>
             <span class="logo-copy">
-                <strong>SUPLEMENTOS</strong>
+                <strong>FELIBOW</strong>
                 <small>FORÇA PARA SUA ROTINA</small>
             </span>
         </a>
@@ -73,11 +75,12 @@
                      aria-hidden="false">
                 <a class="carousel-banner-link"
                    asp-controller="Home"
-                   asp-action="Produto_1"
-                   aria-label="Ver produto Bowsette Edition">
+                   asp-action="Index"
+                   asp-route-q="Pré-treino"
+                   aria-label="Ver pré-treinos">
                     <img class="carousel-banner-image"
-                         src="~/img/banner/bowsette%20edition.png"
-                         alt="Creatina Power Dragon Bowsette Edition, suplemento para força, energia e desempenho." />
+                         src="~/img/banner/banner-pretreino.png"
+                         alt="Banner Felibow: mais energia para o seu treino, com os pré-treinos DuoPower e TurboVolt." />
                 </a>
             </article>
 
@@ -88,11 +91,11 @@
                      inert>
                 <a class="carousel-banner-link"
                    asp-controller="Home"
-                   asp-action="Produto_3"
-                   aria-label="Ver produto Juri Edition">
+                   asp-action="Produto_1"
+                   aria-label="Ver suplementos em pó para performance">
                     <img class="carousel-banner-image"
-                         src="~/img/banner/juri%20edition.png"
-                         alt="Multivitamínico Chaos Energy Juri Edition, com vitaminas e minerais para complementar a alimentação." />
+                         src="~/img/banner/banner-po.png"
+                         alt="Banner Felibow: creatina VitaPrime, whey WheyCore e glutamina GlutaFlow." />
                 </a>
             </article>
 
@@ -103,11 +106,12 @@
                      inert>
                 <a class="carousel-banner-link"
                    asp-controller="Home"
-                   asp-action="Produto_4"
-                   aria-label="Ver produto Nami Edition">
+                   asp-action="Index"
+                   asp-route-q="cápsulas"
+                   aria-label="Ver suplementos em cápsulas">
                     <img class="carousel-banner-image"
-                         src="~/img/banner/nani%20edition.png"
-                         alt="Suplemento Blue Sea Omega 3 Nami Edition, com EPA e DHA para complementar a rotina de bem-estar." />
+                         src="~/img/banner/banner-capsulas.png"
+                         alt="Banner Felibow: cápsulas MagnaBalance, MultiVida e SolVita." />
                 </a>
             </article>
         </div>
@@ -121,9 +125,9 @@
 
         <div class="carousel-footer">
             <div class="carousel-thumbs" aria-label="Escolher banner">
-                <button class="thumb is-active" type="button" aria-label="Mostrar banner Bowsette Edition" aria-current="true" data-slide-to="0"></button>
-                <button class="thumb" type="button" aria-label="Mostrar banner Juri Edition" aria-current="false" data-slide-to="1"></button>
-                <button class="thumb" type="button" aria-label="Mostrar banner Nami Edition" aria-current="false" data-slide-to="2"></button>
+                <button class="thumb is-active" type="button" aria-label="Mostrar banner de pré-treinos" aria-current="true" data-slide-to="0"></button>
+                <button class="thumb" type="button" aria-label="Mostrar banner de suplementos em pó" aria-current="false" data-slide-to="1"></button>
+                <button class="thumb" type="button" aria-label="Mostrar banner de cápsulas" aria-current="false" data-slide-to="2"></button>
             </div>
             <button class="carousel-toggle" type="button" aria-label="Pausar troca automática" aria-pressed="false">Ⅱ</button>
         </div>
@@ -136,7 +140,7 @@
         </div>
 
         <form class="catalog-filters" asp-controller="Home" asp-action="Index" method="get">
-            <input name="q" type="search" value="@ViewBag.Busca" placeholder="Buscar por nome ou edição" aria-label="Buscar produtos" />
+            <input name="q" type="search" value="@ViewBag.Busca" placeholder="Buscar por nome ou descrição" aria-label="Buscar produtos" />
             <select name="ordenar" aria-label="Ordenar produtos">
                 <option value="">Ordenar por nome</option>
                 <option value="menor-preco" selected="@(ViewBag.Ordenacao as string == "menor-preco" ? "selected" : null)">Menor preço</option>
@@ -181,14 +185,14 @@
     <footer class="footer">
         <div class="footer-shell">
             <div class="footer-brand">
-                <a class="logo footer-logo" asp-controller="Home" asp-action="Index" aria-label="Suplementos — página inicial">
+                <a class="logo footer-logo" asp-controller="Home" asp-action="Index" aria-label="Felibow — página inicial">
                     <span class="logo-mark" aria-hidden="true">
                         <svg viewBox="0 0 24 24" focusable="false">
                             <path d="M13.2 2.5 5.8 13h5.1l-.6 8.5L18.2 11h-5.1l.1-8.5Z" />
                         </svg>
                     </span>
                     <span class="logo-copy">
-                        <strong>SUPLEMENTOS</strong>
+                        <strong>FELIBOW</strong>
                         <small>FORÇA PARA SUA ROTINA</small>
                     </span>
                 </a>
@@ -227,7 +231,7 @@
         </div>
 
         <div class="footer-bottom">
-            <span>© 2026 Suplementos</span>
+            <span>© 2026 Felibow</span>
             <a href="#">Termos e condições</a>
             <a href="#">Política de privacidade</a>
         </div>

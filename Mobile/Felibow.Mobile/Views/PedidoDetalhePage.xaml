@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Felibow.Mobile.ViewModels"
+             xmlns:m="clr-namespace:Felibow.Mobile.Models"
+             x:Class="Felibow.Mobile.Views.PedidoDetalhePage" x:DataType="vm:PedidoDetalheViewModel" Title="Pedido">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="8">
+            <Label Text="{Binding Erro}" IsVisible="{Binding TemErro}" TextColor="{StaticResource Danger}" SemanticProperties.HeadingLevel="None" />
+<ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" />
+            <Label Text="{Binding Pedido.NumeroPedido}" FontSize="20" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level1" />
+            <Label Text="{Binding Pedido.Status, StringFormat='Status: {0}'}" />
+            <Label Text="{Binding Pedido.StatusPagamento, StringFormat='Pagamento: {0}'}" />
+            <Label Text="{Binding Pedido.FormaPagamento, StringFormat='Forma: {0}'}" />
+            <Label Text="Itens" FontAttributes="Bold" />
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Linhas}">
+                <BindableLayout.ItemTemplate><DataTemplate x:DataType="x:String"><Label Text="{Binding .}" /></DataTemplate></BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+            <Label Text="{Binding EnderecoTexto, StringFormat='Entrega: {0}'}" />
+            <Label Text="{Binding TotalTexto, StringFormat='Total: {0}'}" FontSize="18" FontAttributes="Bold" />
+            <Border Style="{StaticResource Card}" IsVisible="{Binding TemCodigo}">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Código de pagamento (simulado)" FontAttributes="Bold" />
+                    <Label Text="{Binding CodigoPagamento}" FontSize="12" />
+                    <Button Text="Copiar código" Style="{StaticResource Secondary}" Command="{Binding CopiarCommand}" />
+                </VerticalStackLayout>
+            </Border>
+            <Button Text="Cancelar pedido" BackgroundColor="{StaticResource Danger}" Command="{Binding CancelarCommand}"
+                    IsVisible="{Binding Pedido.PodeCancelar}" IsEnabled="{Binding NaoOcupado}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

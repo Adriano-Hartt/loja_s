@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Laboratório de Programação\\site_loja_s\\loja_s\\loja_s.csproj": {}
+    "C:\\Users\\adriano\\source\\repos\\projetoPim\\loja_s\\loja_s\\loja_s.csproj": {}
   },
   "projects": {
-    "C:\\Laboratório de Programação\\site_loja_s\\loja_s\\loja_s.csproj": {
+    "C:\\Users\\adriano\\source\\repos\\projetoPim\\loja_s\\loja_s\\loja_s.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Laboratório de Programação\\site_loja_s\\loja_s\\loja_s.csproj",
+        "projectUniqueName": "C:\\Users\\adriano\\source\\repos\\projetoPim\\loja_s\\loja_s\\loja_s.csproj",
         "projectName": "loja_s",
-        "projectPath": "C:\\Laboratório de Programação\\site_loja_s\\loja_s\\loja_s.csproj",
-        "packagesPath": "C:\\Users\\ramir\\.nuget\\packages\\",
-        "outputPath": "C:\\Laboratório de Programação\\site_loja_s\\loja_s\\obj\\",
+        "projectPath": "C:\\Users\\adriano\\source\\repos\\projetoPim\\loja_s\\loja_s\\loja_s.csproj",
+        "packagesPath": "C:\\Users\\adriano\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\adriano\\source\\repos\\projetoPim\\loja_s\\loja_s\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ramir\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\adriano\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,13 +46,21 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "11.0.100"
       },
       "frameworks": {
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[10.0.0, )"
@@ -59,6 +74,10 @@
             "SQLitePCLRaw.lib.e_sqlite3": {
               "target": "Package",
               "version": "[2.1.12-pre20260709125052, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[9.*, )"
             }
           },
           "imports": [
@@ -80,7 +99,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.303/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\11.0.100-rc.2.26504.105/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

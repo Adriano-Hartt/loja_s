@@ -803,3 +803,16 @@ body {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* Foto do produto sem tarjas ao redor */
+.imagem-principal {
+    padding: 0;
+    background: transparent;
+    overflow: hidden;
+}
+
+.imagem-principal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Felibow.Mobile.ViewModels"
+             xmlns:m="clr-namespace:Felibow.Mobile.Models"
+             x:Class="Felibow.Mobile.Views.CheckoutPage" x:DataType="vm:CheckoutViewModel" Title="Finalizar compra">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="10">
+            <Label Text="Dados e entrega" FontSize="18" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level2" />
+            <Entry Placeholder="CPF" Keyboard="Numeric" Text="{Binding Cpf}" />
+            <Entry Placeholder="Telefone" Keyboard="Telephone" Text="{Binding Telefone}" />
+            <Entry Placeholder="CEP" Keyboard="Numeric" Text="{Binding Cep}" />
+            <Entry Placeholder="Rua" Text="{Binding Rua}" />
+            <Entry Placeholder="Número" Text="{Binding Numero}" />
+            <Entry Placeholder="Complemento" Text="{Binding Complemento}" />
+            <Entry Placeholder="Bairro" Text="{Binding Bairro}" />
+            <Entry Placeholder="Cidade" Text="{Binding Cidade}" />
+            <Entry Placeholder="UF" MaxLength="2" Text="{Binding Estado}" />
+            <Label Text="Forma de pagamento" FontAttributes="Bold" />
+            <Picker ItemsSource="{Binding Formas}" SelectedItem="{Binding Forma}" Title="Pagamento" />
+            <HorizontalStackLayout Spacing="8">
+                <CheckBox IsChecked="{Binding AceitaTermos}" SemanticProperties.Description="Confirmo os termos da compra" />
+                <Label Text="Confirmo os termos da compra" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <Label Text="{Binding Total, StringFormat='Total: {0}'}" FontSize="20" FontAttributes="Bold" />
+            <Label Text="{Binding Erro}" IsVisible="{Binding TemErro}" TextColor="{StaticResource Danger}" SemanticProperties.HeadingLevel="None" />
+<ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" />
+            <Button Text="Confirmar pedido" Command="{Binding ConfirmarCommand}" IsEnabled="{Binding NaoOcupado}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

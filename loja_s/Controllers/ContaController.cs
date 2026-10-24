@@ -122,7 +122,7 @@ public class ContaController : Controller
         var email = NormalizarEmail(model.Email);
         var usuario = await _context.Usuarios
             .Include(u => u.SegurancaConta)
-            .FirstOrDefaultAsync(u => u.Email.ToLower() == email && u.Tipo == "Cliente");
+            .FirstOrDefaultAsync(u => u.Email.ToLower() == email && (u.Tipo == "Cliente" || u.Tipo == "Admin"));
 
         if (usuario == null || usuario.Status != "Ativo")
         {
@@ -198,6 +198,7 @@ public class ContaController : Controller
         {
             new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
             new Claim(ClaimTypes.Name, usuario.Nome),
+            new Claim(ClaimTypes.Role, usuario.Tipo),
             new Claim("AccountSecurityStamp", seguranca.SecurityStamp),
             new Claim("AccountSessionId", sessionKey)
         };
@@ -215,6 +216,11 @@ public class ContaController : Controller
         if (!string.IsNullOrWhiteSpace(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
         {
             return LocalRedirect(model.ReturnUrl);
+        }
+
+        if (usuario.Tipo == "Admin")
+        {
+            return RedirectToAction("Index", "Admin");
         }
 
         return RedirectToAction(nameof(MinhaConta));
@@ -743,6 +749,7 @@ public class ContaController : Controller
         {
             new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
             new Claim(ClaimTypes.Name, usuario.Nome),
+            new Claim(ClaimTypes.Role, usuario.Tipo),
             new Claim("AccountSecurityStamp", securityStamp),
             new Claim("AccountSessionId", sessionId)
         };

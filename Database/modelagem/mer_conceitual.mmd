@@ -1,0 +1,24 @@
+erDiagram
+    USUARIO ||--o| PERFIL_CONTA : possui
+    USUARIO ||--o| SEGURANCA_CONTA : possui
+    USUARIO ||--o{ SESSAO_CONTA : abre
+    USUARIO ||--o{ TOKEN_CONTA : recebe
+    USUARIO ||--o{ METODO_PAGAMENTO_SALVO : cadastra
+    USUARIO ||--o{ SOLICITACAO_SUPORTE : registra
+    USUARIO ||--o{ NOTIFICACAO : recebe
+    USUARIO ||--o{ ENDERECO : mantem
+    USUARIO ||--o{ CARRINHO : monta
+    USUARIO ||--o{ FAVORITO : marca
+    USUARIO ||--o{ PEDIDO : realiza
+    USUARIO ||--o{ MOVIMENTACAO_ESTOQUE : executa
+    CATEGORIA ||--o{ PRODUTO : classifica
+    FORNECEDOR ||--o{ PRODUTO : abastece
+    PRODUTO ||--o{ ITEM_CARRINHO : "aparece em"
+    PRODUTO ||--o{ FAVORITO : "e marcado em"
+    PRODUTO ||--o{ ITEM_PEDIDO : "e vendido em"
+    PRODUTO ||--o{ MOVIMENTACAO_ESTOQUE : movimenta
+    CARRINHO ||--|{ ITEM_CARRINHO : contem
+    ENDERECO ||--o{ PEDIDO : "e destino de"
+    PEDIDO ||--|{ ITEM_PEDIDO : contem
+    PEDIDO ||--o| PAGAMENTO : "e pago por"
+    PEDIDO ||--o{ HISTORICO_PAGAMENTO : registra

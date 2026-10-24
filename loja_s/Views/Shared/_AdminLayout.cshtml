@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] – Administração</title>
+    <style>
+        :root { --p:#2b1055; --bg:#f4f2f8; --line:#e3e0ec; --muted:#5e5b6b; --danger:#b3261e; --ok:#1b6e3c; }
+        * { box-sizing: border-box; }
+        body { margin:0; font-family: system-ui, sans-serif; background:var(--bg); color:#1c1b22; }
+        header { background:var(--p); color:#fff; padding:12px 24px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+        header a { color:#fff; text-decoration:none; padding:6px 10px; border-radius:8px; }
+        header a:hover, header a:focus-visible { background:rgba(255,255,255,.18); outline:2px solid #fff; }
+        header strong { margin-right:12px; font-size:1.1rem; }
+        main { max-width:1100px; margin:0 auto; padding:24px 16px; }
+        .card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:16px; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
+        .kpi b { display:block; font-size:1.6rem; color:var(--p); }
+        table { width:100%; border-collapse:collapse; }
+        th, td { text-align:left; padding:8px; border-bottom:1px solid var(--line); }
+        th { color:var(--muted); font-weight:600; }
+        .scroll { overflow-x:auto; }
+        label { display:block; margin:10px 0 4px; font-weight:600; }
+        input, select, textarea { width:100%; padding:10px; border:1px solid #bdb8cc; border-radius:8px; font:inherit; }
+        button, .btn { background:var(--p); color:#fff; border:0; padding:10px 16px; border-radius:8px; cursor:pointer; text-decoration:none; display:inline-block; font:inherit; }
+        .btn-danger { background:var(--danger); }
+        .btn-light { background:#fff; color:var(--p); border:1px solid var(--p); }
+        .alert { padding:10px 14px; border-radius:8px; margin-bottom:12px; }
+        .alert-ok { background:#e3f4e9; color:var(--ok); }
+        .alert-err { background:#fde7e5; color:var(--danger); }
+        .field-validation-error, .text-danger { color:var(--danger); }
+        form.inline { display:inline; }
+    </style>
+    <link rel="stylesheet" href="~/css/dark.css" asp-append-version="true" />
+    <script src="~/js/theme.js" asp-append-version="true"></script>
+</head>
+<body>
+    <header>
+        <strong>Felibow Admin</strong>
+        <nav aria-label="Administração" style="display:flex;gap:4px;flex-wrap:wrap">
+            <a asp-controller="Admin" asp-action="Index">Painel</a>
+            <a asp-controller="Admin" asp-action="Pedidos">Pedidos</a>
+            <a asp-controller="Admin" asp-action="Produtos">Produtos</a>
+            <a asp-controller="Admin" asp-action="Relatorios">Relatórios</a>
+            <a asp-controller="Home" asp-action="Index">Ver loja</a>
+        </nav>
+        <form asp-controller="Conta" asp-action="Sair" method="post" style="margin-left:auto">
+            <button type="submit" class="btn-light">Sair</button>
+        </form>
+    </header>
+    <main>
+        @if (TempData["Sucesso"] is string ok) { <div class="alert alert-ok" role="status">@ok</div> }
+        @if (TempData["Erro"] is string erro) { <div class="alert alert-err" role="alert">@erro</div> }
+        @RenderBody()
+    </main>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

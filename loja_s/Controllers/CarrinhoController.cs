@@ -32,6 +32,12 @@ public class CarrinhoController : Controller
         ViewBag.Subtotal = subtotal;
         ViewBag.Frete = frete;
         ViewBag.Total = total;
+
+        // Foto de cada produto (a mesma da página do produto) para mostrar no carrinho.
+        var idsProdutos = itens.Select(i => i.ProdutoId).Distinct().ToList();
+        ViewBag.Imagens = await _context.Produtos.AsNoTracking()
+            .Where(p => idsProdutos.Contains(p.Id))
+            .ToDictionaryAsync(p => p.Id, p => p.ImagemUrl);
         return View(itens);
     }
 
@@ -81,6 +87,40 @@ public class CarrinhoController : Controller
 
         TempData["SuccessMessage"] = "Carrinho atualizado.";
         return RedirectToAction(nameof(Index));
+    }
+
+    /// <summary>Atualização automática da quantidade (chamada pelo JavaScript do carrinho, sem recarregar a página).</summary>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AtualizarQuantidadeAjax(int produtoId, int quantidade)
+    {
+        var userId = ObterUsuarioId();
+        string? erro = null;
+        try
+        {
+            await _carrinhoService.AtualizarQuantidadeAsync(produtoId, quantidade, userId);
+        }
+        catch (InvalidOperationException exception)
+        {
+            erro = exception.Message;
+        }
+
+        var itens = await _carrinhoService.ObterItensAsync(userId);
+        var item = itens.FirstOrDefault(i => i.ProdutoId == produtoId);
+        var subtotal = itens.Sum(i => i.Quantidade * i.PrecoUnitario);
+        var frete = subtotal > 0 ? 19.90m : 0m;
+
+        var resposta = new
+        {
+            erro,
+            removido = item == null,
+            quantidade = item?.Quantidade ?? 0,
+            subtotalItem = item?.Subtotal ?? 0m,
+            subtotal,
+            frete,
+            total = subtotal + frete
+        };
+        return erro == null ? Json(resposta) : BadRequest(resposta);
     }
 
     [HttpPost]

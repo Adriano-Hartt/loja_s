@@ -38,14 +38,14 @@ public class SyncService
         }
         catch (ApiException ex) when (ex.SemConexao)
         {
-            return new CatalogoResultado(await _local.CatalogoAsync(busca), true, await _local.UltimaSincronizacaoAsync());
+            var cache = await _local.CatalogoAsync(busca); if (cache.Count == 0) { return new CatalogoResultado(CatalogoInicial.Buscar(busca), true, null); } return new CatalogoResultado(cache, true, await _local.UltimaSincronizacaoAsync());
         }
     }
 
     public async Task<ProdutoDto?> ProdutoAsync(int id)
     {
         try { return await _api.ProdutoAsync(id); }
-        catch (ApiException ex) when (ex.SemConexao) { return await _local.ProdutoAsync(id); }
+        catch (ApiException ex) when (ex.SemConexao) { return await _local.ProdutoAsync(id) ?? CatalogoInicial.Todos.FirstOrDefault(p => p.Id == id); }
     }
 
     // ---------------------------------------------------------------- operações offline

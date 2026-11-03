@@ -19,7 +19,7 @@ public abstract partial class BaseViewModel : ObservableObject
         Erro = "";
         try { await acao(); }
         catch (ApiException ex) { Erro = ex.Message; }
-        catch (Exception) { Erro = "Algo deu errado. Tente novamente."; }
+        catch (Exception ex) { Erro = "Algo deu errado: " + ex.GetType().Name + " - " + ex.Message; }
         finally { Ocupado = false; }
     }
 

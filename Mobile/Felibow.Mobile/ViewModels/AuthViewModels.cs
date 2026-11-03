@@ -23,6 +23,8 @@ public partial class LoginViewModel : BaseViewModel
     }
 
     /// <summary>Reabre o app já logado se o token guardado ainda vale.</summary>
+    [RelayCommand] private Task VoltarCatalogo() => Shell.Current.GoToAsync("//main/catalogo");
+
     public async Task TentarSessaoSalvaAsync()
     {
         await _session.CarregarAsync();

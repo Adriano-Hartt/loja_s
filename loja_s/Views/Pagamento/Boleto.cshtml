@@ -6,7 +6,7 @@
 <div class="checkout-shell">
     <div class="checkout-section confirmation-box">
         <h1>Boleto bancário</h1>
-        <p><strong>Código:</strong> BOLETO-FELIBOW-@Model.Id</p>
+        <p><strong>Código:</strong> BOLETO-SUPLESTORE-@Model.Id</p>
         <p><strong>Vencimento:</strong> @DateTime.UtcNow.AddDays(3).ToString("dd/MM/yyyy")</p>
         <p><strong>Status:</strong> aguardando pagamento</p>
         <button class="primary-btn">Gerar boleto</button>

@@ -3,16 +3,17 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:Felibow.Mobile.Views"
        x:Class="Felibow.Mobile.AppShell"
-       Shell.BackgroundColor="{StaticResource Primary}"
+       Shell.BackgroundColor="{DynamicResource Navy}"
        Shell.TitleColor="White"
-       Shell.TabBarBackgroundColor="White"
+       Shell.TabBarBackgroundColor="{DynamicResource Surface}"
+       Shell.TabBarForegroundColor="{StaticResource Primary}"
        Shell.TabBarTitleColor="{StaticResource Primary}"
-       Shell.TabBarUnselectedColor="{StaticResource TextMuted}">
-    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}" Shell.FlyoutBehavior="Disabled" />
+       Shell.TabBarUnselectedColor="{DynamicResource TextMuted}">
     <TabBar Route="main">
-        <ShellContent Title="Catálogo" Route="catalogo" ContentTemplate="{DataTemplate views:CatalogoPage}" />
-        <ShellContent Title="Carrinho" Route="carrinho" ContentTemplate="{DataTemplate views:CarrinhoPage}" />
-        <ShellContent Title="Pedidos" Route="pedidos" ContentTemplate="{DataTemplate views:PedidosPage}" />
-        <ShellContent Title="Conta" Route="conta" ContentTemplate="{DataTemplate views:ContaPage}" />
+        <ShellContent Title="Catálogo" Icon="tab_catalogo.png" Route="catalogo" ContentTemplate="{DataTemplate views:CatalogoPage}" />
+        <ShellContent Title="Carrinho" Icon="tab_carrinho.png" Route="carrinho" ContentTemplate="{DataTemplate views:CarrinhoPage}" />
+        <ShellContent Title="Pedidos" Icon="tab_pedidos.png" Route="pedidos" ContentTemplate="{DataTemplate views:PedidosPage}" />
+        <ShellContent Title="Conta" Icon="tab_conta.png" Route="conta" ContentTemplate="{DataTemplate views:ContaPage}" />
     </TabBar>
+    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}" Shell.FlyoutBehavior="Disabled" />
 </Shell>

@@ -3,10 +3,10 @@ namespace Felibow.Mobile.Services;
 /// <summary>URL base da API (configurável na tela Conta).</summary>
 public class SettingsService
 {
-    private const string Chave = "api_base_url";
+    private const string Chave = "api_base_url_v3";
 
     // 10.0.2.2 = máquina host vista pelo emulador Android.
-    public string DefaultUrl => "http://10.0.2.2:5258";
+    public string DefaultUrl => "https://felibow.onrender.com";
 
     public string BaseUrl
     {

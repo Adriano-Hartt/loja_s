@@ -41,7 +41,7 @@ public partial class ContaViewModel : BaseViewModel
         try { await _api.LogoutAsync(); } catch (ApiException) { }
         _session.Limpar();
         await _sync.LimparDadosDaContaAsync();
-        await Shell.Current.GoToAsync("//login");
+        await Shell.Current.GoToAsync("//main/catalogo");
     }
 }
 

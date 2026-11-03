@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adriano\\source\\repos\\projetoPim\\loja_s\\loja_s\\loja_s.csproj": {}
+    "C:\\Users\\adriano\\loja_s\\loja_s\\loja_s.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adriano\\source\\repos\\projetoPim\\loja_s\\loja_s\\loja_s.csproj": {
+    "C:\\Users\\adriano\\loja_s\\loja_s\\loja_s.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adriano\\source\\repos\\projetoPim\\loja_s\\loja_s\\loja_s.csproj",
+        "projectUniqueName": "C:\\Users\\adriano\\loja_s\\loja_s\\loja_s.csproj",
         "projectName": "loja_s",
-        "projectPath": "C:\\Users\\adriano\\source\\repos\\projetoPim\\loja_s\\loja_s\\loja_s.csproj",
+        "projectPath": "C:\\Users\\adriano\\loja_s\\loja_s\\loja_s.csproj",
         "packagesPath": "C:\\Users\\adriano\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adriano\\source\\repos\\projetoPim\\loja_s\\loja_s\\obj\\",
+        "outputPath": "C:\\Users\\adriano\\loja_s\\loja_s\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -5,12 +5,18 @@ namespace Felibow.Mobile;
 
 public partial class App : Application
 {
-    private readonly AppShell _shell;
+    
 
-    public App(AppShell shell, ApiClient api, SessionService session, SyncService sync)
+    public App(ApiClient api, SessionService session, SyncService sync)
     {
         InitializeComponent();
-        _shell = shell;
+        var tema = Preferences.Default.Get("tema", "");
+        if (tema == "dark") UserAppTheme = AppTheme.Dark;
+        else if (tema == "light") UserAppTheme = AppTheme.Light;
+        AplicarTema();
+        RequestedThemeChanged += (_, _) => MainThread.BeginInvokeOnMainThread(AplicarTema);
+        _ = session.CarregarAsync();
+
         // Token expirado/revogado em qualquer chamada => volta ao login.
         api.SessaoExpirada += () => MainThread.BeginInvokeOnMainThread(async () =>
             await Shell.Current.GoToAsync("//login"));
@@ -25,7 +31,20 @@ public partial class App : Application
         };
     }
 
-    protected override Window CreateWindow(IActivationState? activationState) => new(_shell);
+    private void AplicarTema()
+    {
+        var escuro = RequestedTheme == AppTheme.Dark;
+        void Cor(string chave, string claro, string noturno) => Resources[chave] = Color.FromArgb(escuro ? noturno : claro);
+        Cor("Background", "#F7F8FC", "#0A0F22");
+        Cor("Surface", "#FFFFFF", "#131A33");
+        Cor("TextMain", "#202536", "#DCE1E8");
+        Cor("TextMuted", "#687086", "#ACB0B9");
+        Cor("Navy", "#1A2C68", "#0F1A44");
+        Cor("AvisoBg", "#FFF4CC", "#3A3312");
+        Resources["CardStroke"] = new SolidColorBrush(Color.FromArgb(escuro ? "#1F2849" : "#E3E7F0"));
+    }
+
+    protected override Window CreateWindow(IActivationState? activationState) => new(new AppShell());
 }
 
 public class FavoritoTextoConverter : IValueConverter

@@ -7,15 +7,15 @@
     <SingleProject>true</SingleProject>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ApplicationTitle>Felibow</ApplicationTitle>
+    <ApplicationTitle>SupleStore</ApplicationTitle>
     <ApplicationId>br.com.felibow.mobile</ApplicationId>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
-    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#2B1055" />
-    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#2B1055" BaseSize="128,128" />
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#4B64E5" />
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#4B64E5" BaseSize="128,128" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -24,4 +24,12 @@
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
     <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
   </ItemGroup>
+  <ItemGroup>
+    <MauiImage Include="Resources\Images\Produtos\*.png" BaseSize="200,200" />
+    <MauiImage Include="Resources\Images\Icons\*.svg" BaseSize="24,24" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PublishTrimmed>false</PublishTrimmed>
+    <RunAOTCompilation>false</RunAOTCompilation>
+  </PropertyGroup>
 </Project>

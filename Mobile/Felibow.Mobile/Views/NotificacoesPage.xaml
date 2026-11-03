@@ -15,7 +15,7 @@
                         <VerticalStackLayout Spacing="2">
                             <Label Text="{Binding Titulo}" FontAttributes="Bold" />
                             <Label Text="{Binding Mensagem}" />
-                            <Label Text="{Binding CriadaEm, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontSize="12" TextColor="{StaticResource TextMuted}" />
+                            <Label Text="{Binding CriadaEm, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontSize="12" TextColor="{DynamicResource TextMuted}" />
                         </VerticalStackLayout>
                     </Border>
                 </DataTemplate>

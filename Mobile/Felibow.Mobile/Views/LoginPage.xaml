@@ -6,8 +6,8 @@
              x:Class="Felibow.Mobile.Views.LoginPage" x:DataType="vm:LoginViewModel" Title="Entrar" Shell.NavBarIsVisible="False">
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="14" VerticalOptions="Center">
-            <Label Text="Felibow" FontSize="34" FontAttributes="Bold" TextColor="{StaticResource Primary}" HorizontalOptions="Center" SemanticProperties.HeadingLevel="Level1" />
-            <Label Text="Entre para comprar e acompanhar seus pedidos" HorizontalOptions="Center" TextColor="{StaticResource TextMuted}" />
+            <Label Text="SupleStore" FontSize="34" FontAttributes="Bold" TextColor="{StaticResource Primary}" HorizontalOptions="Center" SemanticProperties.HeadingLevel="Level1" />
+            <Label Text="Entre para comprar e acompanhar seus pedidos" HorizontalOptions="Center" TextColor="{DynamicResource TextMuted}" />
             <Entry Placeholder="E-mail" Keyboard="Email" Text="{Binding Email}" SemanticProperties.Description="E-mail" />
             <Entry Placeholder="Senha" IsPassword="True" Text="{Binding Senha}" SemanticProperties.Description="Senha" />
             <Entry Placeholder="Servidor (ex.: http://10.0.2.2:5258)" Keyboard="Url" Text="{Binding Servidor}" SemanticProperties.Description="Endereço do servidor" />
@@ -15,6 +15,7 @@
 <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" />
             <Button Text="Entrar" Command="{Binding EntrarCommand}" IsEnabled="{Binding NaoOcupado}" />
             <Button Text="Criar conta" Style="{StaticResource Secondary}" Command="{Binding CadastrarCommand}" />
+            <Button Text="Voltar ao catálogo" Style="{StaticResource Secondary}" BorderWidth="0" Command="{Binding VoltarCatalogoCommand}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

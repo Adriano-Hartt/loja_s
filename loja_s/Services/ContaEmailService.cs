@@ -103,7 +103,7 @@ public sealed class ContaEmailService : IContaEmailService
             var safeLink = System.Net.WebUtility.HtmlEncode(link);
             using var message = new System.Net.Mail.MailMessage(from, email)
             {
-                Subject = $"Felibow — {finalidade}",
+                Subject = $"SupleStore — {finalidade}",
                 Body = $"<p>Use o link abaixo para concluir a {finalidade}:</p><p><a href=\"{safeLink}\">Continuar</a></p><p>Se você não solicitou esta ação, ignore esta mensagem.</p>",
                 IsBodyHtml = true
             };

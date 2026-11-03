@@ -20,7 +20,7 @@ public class ApiException : Exception
 public class ApiClient
 {
     private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web);
-    private readonly HttpClient _http = new() { Timeout = TimeSpan.FromSeconds(20) };
+    private readonly HttpClient _http = new() { Timeout = TimeSpan.FromSeconds(8) };
     private readonly SettingsService _settings;
     private readonly SessionService _session;
 
@@ -75,9 +75,13 @@ public class ApiClient
     public Task<ResumoContaDto> ResumoAsync() => SendAsync<ResumoContaDto>(HttpMethod.Get, "api/v1/conta/resumo");
 
     /// <summary>Converte caminho relativo de imagem (/uploads/..) em URL absoluta.</summary>
+    private static readonly HashSet<string> ImagensLocais = new() { "creatina", "d3k2", "duopower", "glutamina", "magnesio", "multivitaminico", "omega3", "turbovolt", "whey" };
+
     public string? Midia(string? caminho)
     {
         if (string.IsNullOrWhiteSpace(caminho)) return null;
+        var nomeLocal = Path.GetFileNameWithoutExtension(caminho).ToLowerInvariant();
+        if (ImagensLocais.Contains(nomeLocal)) return nomeLocal;
         return caminho.StartsWith("http", StringComparison.OrdinalIgnoreCase)
             ? caminho
             : _settings.BaseUrl + (caminho.StartsWith('/') ? caminho : "/" + caminho);
@@ -108,7 +112,7 @@ public class ApiClient
         {
             resposta = await _http.SendAsync(req);
         }
-        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        catch (Exception)
         {
             throw new ApiException("Sem conexão com o servidor. Verifique a rede e o endereço configurado.", 0, true);
         }

@@ -9,7 +9,7 @@
             <Label Text="{Binding Erro}" IsVisible="{Binding TemErro}" TextColor="{StaticResource Danger}" SemanticProperties.HeadingLevel="None" />
 <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}" Color="{StaticResource Primary}" />
             <Label Text="{Binding Nome}" FontSize="22" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level1" />
-            <Label Text="{Binding Email}" TextColor="{StaticResource TextMuted}" />
+            <Label Text="{Binding Email}" TextColor="{DynamicResource TextMuted}" />
             <Border Style="{StaticResource Card}"><Label Text="{Binding Resumo}" /></Border>
             <Button Text="Favoritos" Command="{Binding FavoritosCommand}" />
             <Button Text="Notificações" Command="{Binding NotificacoesCommand}" />

@@ -11,9 +11,9 @@
             <VerticalStackLayout BindingContext="{Binding Produto}" x:DataType="vm:ProdutoItem" Spacing="8">
                 <Image Source="{Binding Imagem}" HeightRequest="260" Aspect="AspectFit" SemanticProperties.Description="{Binding Dto.Nome}" />
                 <Label Text="{Binding Dto.Nome}" FontSize="22" FontAttributes="Bold" SemanticProperties.HeadingLevel="Level1" />
-                <Label Text="{Binding Dto.EdicaoEspecial}" TextColor="{StaticResource TextMuted}" />
+                <Label Text="{Binding Dto.EdicaoEspecial}" TextColor="{DynamicResource TextMuted}" />
                 <Label Text="{Binding PrecoTexto}" FontSize="24" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
-                <Label Text="{Binding EstoqueTexto}" TextColor="{StaticResource TextMuted}" />
+                <Label Text="{Binding EstoqueTexto}" TextColor="{DynamicResource TextMuted}" />
                 <Label Text="{Binding Dto.Descricao}" />
             </VerticalStackLayout>
             <HorizontalStackLayout Spacing="16" HorizontalOptions="Center">
@@ -23,6 +23,7 @@
             </HorizontalStackLayout>
             <Label Text="{Binding Mensagem}" TextColor="Green" HorizontalOptions="Center" />
             <Button Text="Adicionar ao carrinho" Command="{Binding AdicionarCommand}" IsEnabled="{Binding NaoOcupado}" />
+            <Button Text="{Binding Produto.Favorito, Converter={StaticResource FavTexto}}" Style="{StaticResource Secondary}" Command="{Binding AlternarFavoritoCommand}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
